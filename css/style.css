@@ -6,3 +6,11 @@
 .cell:hover{
 	background-color: cyan;
 }
+
+.no-boat{
+	background-color: gray;
+}
+
+.boat-destroyed{
+	background-color: red;
+}
