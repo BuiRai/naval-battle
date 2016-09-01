@@ -1,4 +1,4 @@
-var dashBoard = (function() {
+var dashBoard = (function($) {
 
 	var matrix = [
 		[false, false, false, false, false],
@@ -9,9 +9,14 @@ var dashBoard = (function() {
 	];
 
 	// Private functions
-	var setRandomBoat = function(axisX, axisY) {
-		matrix[axisX][axisY] = true;
+	var setRandomBoat = function(dashboard, x, y) {
+		matrix[x][y] = true;
 	};
+
+	var buildDashboard = function(dashboard, x, y){
+		this.x = x || 5;
+		this.y = y || 5;
+	}
 
 	var fillFiveBoats = function(){
 		for(var i = 0 ; i < 5 ; i++){
@@ -24,8 +29,10 @@ var dashBoard = (function() {
 	var printDashboard = function(){
 		console.log(matrix);
 	}
-	fillFiveBoats();
-	printDashboard();
+
+	$('.cell').click(function(){
+		console.log(":)");
+	});
 
 	// Public functions
 	var publicFunc1 = function() {
@@ -39,4 +46,4 @@ var dashBoard = (function() {
 		publicFunc1: publicFunc1,
 		publicFunc2: publicFunc2
 	};
-})();
+})(jQuery);
