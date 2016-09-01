@@ -46,8 +46,8 @@ var navalGame = (function(){
 	}
 
 	game.shootWeapon = function(event){
-		game.player.shoots += 1;
-
+		game.player.shots += 1;
+		
 		x = parseInt(event.data.axisX);
 		y = parseInt(event.data.axisY);
 		
@@ -61,6 +61,11 @@ var navalGame = (function(){
 		}
 
 		game.player.calculateAccuracy();
+
+		$('#accuracy').text(game.player.accuracy + '%');
+		$('#boatsDestroyed').text(game.player.boatsDestroyed);
+		$('#shots').text(game.player.shots);
+
 		console.log("Player", game.player);
 	}
 
@@ -69,12 +74,12 @@ var navalGame = (function(){
 })();
 
 var player = {
-	shoots: 0,
+	shots: 0,
 	boatsDestroyed: 0,
 	accuracy: 0,
 	
 	calculateAccuracy: function(){
-		player.accuracy = player.boatsDestroyed / player.shoots;
+		player.accuracy = ((player.boatsDestroyed / player.shots) * 100).toFixed(1);
 	}
 }
 
