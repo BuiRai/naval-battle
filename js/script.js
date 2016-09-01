@@ -11,6 +11,13 @@ var navalGame = (function(){
 		[{id: 20, value: false},{id: 21, value: false},{id: 22, value: false},{id: 23, value: false},{id: 24, value: false}]
 	]
 
+	game.player;
+
+	game.addPlayer = function(player){
+		game.player = player;
+		console.log(player);
+	}
+
 	game.populateBoats = function(){
 		for(let i = 0 ; i < 5 ; i++){
 			axisX = Math.floor((Math.random() * 4));
@@ -39,21 +46,38 @@ var navalGame = (function(){
 	}
 
 	game.shootWeapon = function(event){
+		game.player.shoots += 1;
+
 		x = parseInt(event.data.axisX);
 		y = parseInt(event.data.axisY);
 		
 		if ( game.dashboard[x][y].value === true ) {
 			console.log("dammm!!!, you did it");
+			game.player.boatsDestroyed += 1;
 			$('#' + event.target.id).addClass('boat-destroyed');
 		}else{
 			console.log("jaja, looooooser");
 			$('#' + event.target.id).addClass('no-boat');
 		}
+
+		game.player.calculateAccuracy();
+		console.log("Player", game.player);
 	}
 
 	return game;
 
 })();
 
+var player = {
+	shoots: 0,
+	boatsDestroyed: 0,
+	accuracy: 0,
+	
+	calculateAccuracy: function(){
+		player.accuracy = player.boatsDestroyed / player.shoots;
+	}
+}
+
 navalGame.populateBoats();
 navalGame.addEventToButtons();
+navalGame.addPlayer(player);
